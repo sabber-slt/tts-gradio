@@ -5,7 +5,7 @@ import torch
 if torch.cuda.is_available():
     device = "cuda"
 elif torch.backends.mps.is_available():
-    device = "cpu"  # mps doesn't work yet
+    device = "cpu" 
 else:
     device = "cpu"
 
@@ -19,7 +19,7 @@ def predict(prompt, audio_file_pth, agree):
             text=prompt,
             file_path="output.wav",
             speaker_wav=audio_file_pth,
-            language="en,
+            language="en",
         )
 
         return (
@@ -32,22 +32,19 @@ def predict(prompt, audio_file_pth, agree):
         gr.Warning("Please accept the Terms & Condition!")
 
 
-title = "Coqui🐸 XTTS"
-
 gr.Interface(
     fn=predict,
     inputs=[
         gr.Textbox(
             label="Text Prompt",
-            info="keep it short!",
-            value="LLMs hold the key to generative AI, but some are more suited than others to specific tasks. Here's a guide to the five most powerful and how to use them.",
+            info="...",
+            value="hello!",
         ),
-
         gr.Audio(
             label="Reference Audio",
-            info="",
+            info="Upload your own target speaker audio",
             type="filepath",
-            value="examples/male.wav",
+            value="examples/female.wav",
         ),
         gr.Checkbox(
             label="Agree",
@@ -59,5 +56,6 @@ gr.Interface(
         gr.Video(label="Waveform Visual"),
         gr.Audio(label="Synthesised Audio"),
     ],
-    title=title,
+
 ).queue().launch(debug=True)
+
